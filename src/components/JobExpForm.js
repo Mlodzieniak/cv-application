@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-class Form extends React.Component{
+class JobExpForm extends React.Component{
   render(){ return (
     <div className="overview">
      
@@ -10,4 +10,4 @@ class Form extends React.Component{
  
 }
 
-export default Form;
+export default JobExpForm;
