@@ -6,7 +6,7 @@ import Overview from "./components/Overview";
 import Footer from "./components/Footer";
 import Forms from "./components/Forms";
 
-class App extends React.Component {
+class App extends React.PureComponent {
   render() {
     return (
       <div className="App">

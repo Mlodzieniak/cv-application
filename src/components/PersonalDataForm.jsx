@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 
-class PersonalDataForm extends Component {
+class PersonalDataForm extends React.PureComponent {
   render() {
     return <div className="form">PersonalDataForm</div>;
   }

@@ -1,12 +1,9 @@
-import React from 'react';
+import React from "react";
 
-class JobExpForm extends React.Component{
-  render(){ return (
-    <div className="form">
-     JobExpForm
-    </div>
-  );}
- 
+class JobExpForm extends React.PureComponent {
+  render() {
+    return <div className="form">JobExpForm</div>;
+  }
 }
 
 export default JobExpForm;
