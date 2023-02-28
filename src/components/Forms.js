@@ -10,6 +10,12 @@ class Forms extends React.Component{
       <PersonalDataForm />
       <EducationForm />
       <JobExpForm />
+      
+      </div>
+      <div className='nav-buttons'>
+      <button className='prev'></button>
+      <button className='apply'>Apply</button>
+      <button className='next'></button>
       </div>
     </div>
   );}
