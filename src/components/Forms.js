@@ -5,11 +5,12 @@ import JobExpForm from './JobExpForm';
 
 class Forms extends React.Component{
   render(){ return (
-    <div className="overview">
+    <div className="forms bg-white">
+      <div className='slider flex-row'>
       <PersonalDataForm />
       <EducationForm />
       <JobExpForm />
-     
+      </div>
     </div>
   );}
  

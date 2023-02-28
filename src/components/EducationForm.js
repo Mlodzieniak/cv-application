@@ -2,8 +2,8 @@ import React from 'react';
 
 class EducationForm extends React.Component{
   render(){ return (
-    <div className="overview">
-     
+    <div className="form">
+     EducationForm
     </div>
   );}
  

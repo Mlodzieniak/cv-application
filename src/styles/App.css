@@ -1,3 +1,91 @@
 .App {
   text-align: center;
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "forms overview"
+    "footer footer";
+  grid-template-rows: min-content 1fr min-content;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+}
+
+.header {
+  grid-area: header;
+  padding: 0.5rem;
+
+}
+
+.forms {
+  grid-area: forms;
+  overflow: hidden;
+  flex-wrap: nowrap;
+
+}
+
+.overview {
+  grid-area: overview;
+}
+
+.footer {
+  grid-area: footer;
+  padding: 1rem;
+}
+
+.slider {
+  transform: translateX(-0vw);
+  width: max-content;
+  height: 100%;
+}
+
+.slider>* {
+  width: 50vw;
+  border: red 2px solid;
+
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+.bg-db {
+  background-color: #4059ad;
+}
+
+.bg-lb {
+  background-color: #6b9ac4;
+}
+
+.bg-green {
+  background-color: #97d8c4;
+}
+
+.bg-white {
+  background-color: #eff2f1;
+}
+
+.bg-yellow {
+  background-color: #f4b942;
+}
+
+.fff {
+  color: #fff;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.no-dec {
+  text-decoration: none;
+  color: inherit;
 }
