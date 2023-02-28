@@ -1,7 +1,6 @@
 import React from 'react';
-import './App.css';
 
-class PersonalDataForm extends React.Component{
+class EducationForm extends React.Component{
   render(){ return (
     <div className="overview">
      
@@ -10,4 +9,4 @@ class PersonalDataForm extends React.Component{
  
 }
 
-export default PersonalDataForm;
+export default EducationForm;

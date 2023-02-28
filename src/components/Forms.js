@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import PersonalDataForm from './PersonalDataForm';
 import EducationForm from './EducationForm';
 import JobExpForm from './JobExpForm';
