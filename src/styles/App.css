@@ -36,6 +36,7 @@
   transform: translateX(-0vw);
   width: max-content;
   height: 100%;
+  transition: transform 0.2s ease-out;
 }
 
 .slider>* {
