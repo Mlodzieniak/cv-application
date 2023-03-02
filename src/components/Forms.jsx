@@ -15,7 +15,7 @@ class Forms extends React.PureComponent {
   }
 
   moveLeft() {
-    this.setState((prevState) => ({ left: prevState.left + 50 }));
+    this.setState((prevState) => ({ left: prevState.left + 40 }));
     if (this.state.left >= 0) {
       this.setState({
         left: 0,
@@ -24,10 +24,10 @@ class Forms extends React.PureComponent {
   }
 
   moveRight() {
-    this.setState((prevState) => ({ left: prevState.left - 50 }));
-    if (this.state.left <= -100) {
+    this.setState((prevState) => ({ left: prevState.left - 40 }));
+    if (this.state.left <= -80) {
       this.setState({
-        left: -100,
+        left: -80,
       });
     }
   }

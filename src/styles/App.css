@@ -6,7 +6,7 @@
     "forms overview"
     "footer footer";
   grid-template-rows: min-content 1fr min-content;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 3fr;
   height: 100vh;
 }
 
@@ -40,8 +40,8 @@
 }
 
 .slider>* {
-  width: 50vw;
-  border: red 2px solid;
+  width: 40vw;
+  /* border: red 2px solid; */
 
 }
 
@@ -145,4 +145,18 @@
 .no-dec {
   text-decoration: none;
   color: inherit;
+}
+
+form {
+  gap: 2rem;
+  flex: 0;
+}
+
+label {
+  display: block;
+}
+
+input {
+  font-size: 1rem;
+  padding: 0.8rem;
 }
