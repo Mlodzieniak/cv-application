@@ -4,8 +4,8 @@ import EducationForm from "./EducationForm";
 import JobExpForm from "./JobExpForm";
 
 class Forms extends React.PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.moveLeft = this.moveLeft.bind(this);
     this.moveRight = this.moveRight.bind(this);
 
@@ -13,6 +13,10 @@ class Forms extends React.PureComponent {
       left: 0,
     };
   }
+
+  handleStateChange = (newSurname) => {
+    this.props.onChange(newSurname);
+  };
 
   moveLeft() {
     this.setState((prevState) => ({ left: prevState.left + 40 }));
@@ -40,7 +44,7 @@ class Forms extends React.PureComponent {
           style={{ transform: `translateX(${left}vw)` }}
           className="slider flex-row"
         >
-          <PersonalDataForm />
+          <PersonalDataForm onChange={this.handleStateChange} />
           <EducationForm />
           <JobExpForm />
         </div>

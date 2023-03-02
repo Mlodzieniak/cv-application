@@ -1,6 +1,22 @@
+/* eslint-disable react/destructuring-assignment */
 import React from "react";
 
 class PersonalDataForm extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      surname: "",
+    };
+    // this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      surname: event.target.value,
+    });
+    this.props.onChange(this.state.surname);
+  };
+
   render() {
     return (
       <div className="form">
@@ -12,7 +28,12 @@ class PersonalDataForm extends React.PureComponent {
           </div>
           <div className="input">
             <label htmlFor="surname">Surname:</label>
-            <input id="surname" type="text" />
+            <input
+              onChange={(event) => this.handleChange(event)}
+              value={this.state.surname}
+              id="surname"
+              type="text"
+            />
           </div>
           <div className="input">
             <label htmlFor="email">E-mail:</label>
