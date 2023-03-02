@@ -11,20 +11,20 @@ class App extends React.PureComponent {
   constructor() {
     super();
     this.state = {
-      surname: "",
+      form: {},
     };
   }
 
-  handleStateChange = (newSurname) => {
-    this.setState({ surname: newSurname });
+  handleStateChange = (newForm) => {
+    this.setState({ form: newForm });
   };
 
   render() {
     return (
       <div className="App">
         <Header />
-        <Forms onChange={this.handleStateChange} surname={this.state.surname} />
-        <Overview surname={this.state.surname} />
+        <Forms onChange={this.handleStateChange} />
+        <Overview form={this.state.form} />
         <Footer />
       </div>
     );

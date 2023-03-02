@@ -11,10 +11,12 @@ class PersonalDataForm extends React.PureComponent {
   }
 
   handleChange = (event) => {
-    this.setState({
-      surname: event.target.value,
-    });
-    this.props.onChange(this.state.surname);
+    this.setState(
+      {
+        surname: event.target.value,
+      },
+      () => this.props.onChange(this.state.surname)
+    );
   };
 
   render() {

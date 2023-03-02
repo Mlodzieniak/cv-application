@@ -11,12 +11,26 @@ class Forms extends React.PureComponent {
 
     this.state = {
       left: 0,
+      form: {
+        surname: "",
+      },
     };
   }
 
   handleStateChange = (newSurname) => {
-    this.props.onChange(newSurname);
+    this.setState({
+      form: {
+        surname: newSurname,
+      },
+    });
   };
+
+  applyForm = () => {
+    this.props.onChange(this.state.form);
+  };
+  // handleStateChange = (newSurname) => {
+  //   this.props.onChange(newSurname);
+  // };
 
   moveLeft() {
     this.setState((prevState) => ({ left: prevState.left + 40 }));
@@ -56,7 +70,11 @@ class Forms extends React.PureComponent {
             <ion-icon name="chevron-back-outline" />{" "}
           </nav>
           <nav className="bg-yellow shadow radius">
-            <button type="button" className="apply bold font1">
+            <button
+              onClick={this.applyForm}
+              type="button"
+              className="apply bold font1"
+            >
               Apply
             </button>
           </nav>

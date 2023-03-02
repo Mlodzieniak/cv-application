@@ -8,7 +8,7 @@ class Overview extends React.PureComponent {
   render() {
     return (
       <div className="overview bg-lb">
-        <h1>{this.props.surname}</h1>
+        <h1>{this.props.form.surname}</h1>
       </div>
     );
   }
