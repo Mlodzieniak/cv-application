@@ -1,4 +1,6 @@
+/* eslint-disable react/destructuring-assignment */
 import React from "react";
+import propTypes from "prop-types";
 import PersonalDataForm from "./PersonalDataForm";
 import EducationForm from "./EducationForm";
 import JobExpForm from "./JobExpForm";
@@ -11,26 +13,19 @@ class Forms extends React.PureComponent {
 
     this.state = {
       left: 0,
-      form: {
-        surname: "",
-      },
+      form: {},
     };
   }
 
-  handleStateChange = (newSurname) => {
+  handleStateChange = (newForm) => {
     this.setState({
-      form: {
-        surname: newSurname,
-      },
+      form: newForm,
     });
   };
 
   applyForm = () => {
     this.props.onChange(this.state.form);
   };
-  // handleStateChange = (newSurname) => {
-  //   this.props.onChange(newSurname);
-  // };
 
   moveLeft() {
     this.setState((prevState) => ({ left: prevState.left + 40 }));
@@ -63,12 +58,13 @@ class Forms extends React.PureComponent {
           <JobExpForm />
         </div>
         <div className="nav-buttons flex-row space-between align-center bold">
-          <nav
+          <button
+            type="button"
             onClick={this.moveLeft}
             className="prev font2 bg-yellow rounded-button shadow"
           >
             <ion-icon name="chevron-back-outline" />{" "}
-          </nav>
+          </button>
           <nav className="bg-yellow shadow radius">
             <button
               onClick={this.applyForm}
@@ -78,12 +74,13 @@ class Forms extends React.PureComponent {
               Apply
             </button>
           </nav>
-          <nav
+          <button
+            type="button"
             onClick={this.moveRight}
             className="next font2 bg-yellow rounded-button shadow"
           >
             <ion-icon name="chevron-forward-outline" />{" "}
-          </nav>
+          </button>
         </div>
       </div>
     );
@@ -91,3 +88,7 @@ class Forms extends React.PureComponent {
 }
 
 export default Forms;
+
+Forms.propTypes = {
+  onChange: propTypes.func.isRequired,
+};
