@@ -103,8 +103,7 @@ class PersonalDataForm extends React.PureComponent {
     );
   }
 }
-
-export default PersonalDataForm;
 PersonalDataForm.propTypes = {
   onChange: propTypes.func.isRequired,
 };
+export default PersonalDataForm;
