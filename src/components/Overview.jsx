@@ -21,6 +21,8 @@ class Overview extends React.PureComponent {
             <div key={uniqid()}>
               {" "}
               <p className="">School name: {school.name}</p>
+              <p className="">Field of study: {school.fos}</p>
+              <p className="">Degree: {school.degree}</p>
             </div>
           ))}
         </div>

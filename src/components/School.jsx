@@ -14,19 +14,10 @@ class School extends React.PureComponent {
     };
   }
 
-  handleChangesName = (event) => {
-    // this.setState(
-    //   (prevState) => ({
-    //     school: {
-    //       ...prevState,
-    //       name: event.target.value,
-    //     },
-    //   }),
-    //   () => this.props.onChange(this.state.school)
-    // );
+  handleChangesName = (event, key) => {
     this.setState(
       {
-        name: event.target.value,
+        [key]: event.target.value,
       },
       () => this.props.onChange(this.state)
     );
@@ -42,18 +33,28 @@ class School extends React.PureComponent {
             School name:
             <input
               value={name}
-              onChange={(event) => this.handleChangesName(event)}
+              onChange={(event) => this.handleChangesName(event, "name")}
               type="text"
               id="schoolName"
             />
           </label>
           <label htmlFor="field">
             Field of study:
-            <input value={fos} type="text" id="field" />
+            <input
+              value={fos}
+              onChange={(event) => this.handleChangesName(event, "fos")}
+              type="text"
+              id="field"
+            />
           </label>
           <label htmlFor="degree">
             Degree:
-            <input value={degree} type="text" id="degree" />
+            <input
+              value={degree}
+              onChange={(event) => this.handleChangesName(event, "degree")}
+              type="text"
+              id="degree"
+            />
           </label>
         </form>
         <button onClick={() => onDelete(schoolId)} type="button">

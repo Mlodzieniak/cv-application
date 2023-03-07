@@ -20,12 +20,9 @@ class EducationForm extends React.PureComponent {
   };
 
   handleSchoolChanges = (updatedSchool) => {
-    console.log(updatedSchool);
-
     const { schools } = this.state;
     const newSchools = [...schools];
     const found = newSchools.findIndex((pos) => pos.id === updatedSchool.id);
-    console.log(found);
     newSchools[found] = updatedSchool;
     this.setState(
       {
@@ -33,7 +30,6 @@ class EducationForm extends React.PureComponent {
       },
       () => {
         // eslint-disable-next-line react/destructuring-assignment
-        console.log(this.state.schools);
         // eslint-disable-next-line react/destructuring-assignment
         this.props.onChange(this.state.schools);
       }

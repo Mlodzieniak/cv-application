@@ -25,7 +25,6 @@ class Forms extends React.PureComponent {
   };
 
   handleEducationChange = (newSchools) => {
-    console.log(newSchools);
     this.setState({
       education: newSchools,
     });
@@ -35,7 +34,6 @@ class Forms extends React.PureComponent {
     const { personalData, education } = this.state;
     // this.props.onChange(education);
     this.props.onChange(personalData, education);
-    console.log(education);
   };
 
   moveLeft() {
