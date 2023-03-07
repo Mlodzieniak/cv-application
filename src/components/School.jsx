@@ -10,6 +10,8 @@ class School extends React.PureComponent {
       name: "",
       fos: "",
       degree: "",
+      start: null,
+      end: null,
       id: this.props.schoolId,
     };
   }
@@ -25,7 +27,7 @@ class School extends React.PureComponent {
 
   render() {
     const { schoolId, onDelete } = this.props;
-    const { name, fos, degree } = this.state;
+    const { name, fos, degree, start, end } = this.state;
     return (
       <div className="school">
         <form method="get">
@@ -49,11 +51,37 @@ class School extends React.PureComponent {
           </label>
           <label htmlFor="degree">
             Degree:
-            <input
+            <select
               value={degree}
               onChange={(event) => this.handleChangesName(event, "degree")}
               type="text"
               id="degree"
+            >
+              <option value="Bachelors">Bachelors</option>
+              <option value="Masters">Masters</option>
+              <option value="Doctors">Doctors</option>
+              <option value="High school">High school</option>
+            </select>
+          </label>
+          <label htmlFor="start">
+            Start year:
+            <input
+              value={start}
+              onChange={(event) => this.handleChangesName(event, "start")}
+              type="number"
+              id="start"
+              min="1950"
+              max={new Date().getFullYear()}
+            />
+          </label>
+          <label htmlFor="end">
+            End year:
+            <input
+              value={end}
+              onChange={(event) => this.handleChangesName(event, "end")}
+              type="number"
+              id="end"
+              min={this.state.start ? this.state.start : "2030"}
             />
           </label>
         </form>

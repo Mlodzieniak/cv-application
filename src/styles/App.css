@@ -156,7 +156,8 @@ label {
   display: block;
 }
 
-input {
+input,
+select {
   font-size: 1rem;
   padding: 0.8rem;
 }

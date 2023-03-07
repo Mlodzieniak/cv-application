@@ -23,6 +23,8 @@ class Overview extends React.PureComponent {
               <p className="">School name: {school.name}</p>
               <p className="">Field of study: {school.fos}</p>
               <p className="">Degree: {school.degree}</p>
+              <p className="">Start year: {school.start}</p>
+              <p className="">End year: {school.end}</p>
             </div>
           ))}
         </div>
