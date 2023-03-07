@@ -13,18 +13,29 @@ class Forms extends React.PureComponent {
 
     this.state = {
       left: 0,
-      form: {},
+      personalData: {},
+      education: [],
     };
   }
 
-  handleStateChange = (newForm) => {
+  handlePersonalDataChange = (newForm) => {
     this.setState({
-      form: newForm,
+      personalData: newForm,
+    });
+  };
+
+  handleEducationChange = (newSchools) => {
+    console.log(newSchools);
+    this.setState({
+      education: newSchools,
     });
   };
 
   applyForm = () => {
-    this.props.onChange(this.state.form);
+    const { personalData, education } = this.state;
+    // this.props.onChange(education);
+    this.props.onChange(personalData, education);
+    console.log(education);
   };
 
   moveLeft() {
@@ -53,8 +64,8 @@ class Forms extends React.PureComponent {
           style={{ transform: `translateX(${left}vw)` }}
           className="slider flex-row"
         >
-          <PersonalDataForm onChange={this.handleStateChange} />
-          <EducationForm />
+          <PersonalDataForm onChange={this.handlePersonalDataChange} />
+          <EducationForm onChange={this.handleEducationChange} />
           <JobExpForm />
         </div>
         <div className="nav-buttons flex-row space-between align-center bold">

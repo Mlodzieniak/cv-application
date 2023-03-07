@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from "react";
 import uniqid from "uniqid";
+import propTypes from "prop-types";
 import School from "./School";
 
 class EducationForm extends React.PureComponent {
@@ -18,6 +19,27 @@ class EducationForm extends React.PureComponent {
     });
   };
 
+  handleSchoolChanges = (updatedSchool) => {
+    console.log(updatedSchool);
+
+    const { schools } = this.state;
+    const newSchools = [...schools];
+    const found = newSchools.findIndex((pos) => pos.id === updatedSchool.id);
+    console.log(found);
+    newSchools[found] = updatedSchool;
+    this.setState(
+      {
+        schools: newSchools,
+      },
+      () => {
+        // eslint-disable-next-line react/destructuring-assignment
+        console.log(this.state.schools);
+        // eslint-disable-next-line react/destructuring-assignment
+        this.props.onChange(this.state.schools);
+      }
+    );
+  };
+
   render() {
     const { schools } = this.state;
 
@@ -29,8 +51,8 @@ class EducationForm extends React.PureComponent {
             <School
               schoolId={pos.id}
               onDelete={this.handleDelete}
-              list={schools}
               key={pos.id}
+              onChange={this.handleSchoolChanges}
             />
           ))}
         </div>
@@ -48,5 +70,9 @@ class EducationForm extends React.PureComponent {
     );
   }
 }
+
+EducationForm.propTypes = {
+  onChange: propTypes.func.isRequired,
+};
 
 export default EducationForm;

@@ -11,12 +11,14 @@ class App extends React.PureComponent {
   constructor() {
     super();
     this.state = {
-      form: {},
+      personalData: {},
+      education: [],
     };
   }
 
-  handleStateChange = (newForm) => {
-    this.setState({ form: newForm });
+  handleStateChange = (newPersonalData, newEducation) => {
+    this.setState({ personalData: newPersonalData });
+    this.setState({ education: newEducation });
   };
 
   render() {
@@ -24,7 +26,10 @@ class App extends React.PureComponent {
       <div className="App">
         <Header />
         <Forms onChange={this.handleStateChange} />
-        <Overview form={this.state.form} />
+        <Overview
+          personalData={this.state.personalData}
+          education={this.state.education}
+        />
         <Footer />
       </div>
     );
