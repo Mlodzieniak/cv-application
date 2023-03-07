@@ -32,7 +32,6 @@ class Forms extends React.PureComponent {
 
   applyForm = () => {
     const { personalData, education } = this.state;
-    // this.props.onChange(education);
     this.props.onChange(personalData, education);
   };
 

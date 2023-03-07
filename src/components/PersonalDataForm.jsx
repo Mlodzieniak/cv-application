@@ -13,37 +13,10 @@ class PersonalDataForm extends React.PureComponent {
     };
   }
 
-  handleNameChange = (event) => {
+  handleChange = (event, key) => {
     this.setState(
       {
-        name: event.target.value,
-      },
-      () => this.props.onChange(this.state)
-    );
-  };
-
-  handleSurnameChange = (event) => {
-    this.setState(
-      {
-        surname: event.target.value,
-      },
-      () => this.props.onChange(this.state)
-    );
-  };
-
-  handleEmailChange = (event) => {
-    this.setState(
-      {
-        email: event.target.value,
-      },
-      () => this.props.onChange(this.state)
-    );
-  };
-
-  handleTelChange = (event) => {
-    this.setState(
-      {
-        tel: event.target.value,
+        [key]: event.target.value,
       },
       () => this.props.onChange(this.state)
     );
@@ -58,7 +31,7 @@ class PersonalDataForm extends React.PureComponent {
             <label htmlFor="name">
               Name:
               <input
-                onChange={(event) => this.handleNameChange(event)}
+                onChange={(event) => this.handleChange(event, "name")}
                 value={this.state.name}
                 id="name"
                 type="text"
@@ -69,7 +42,7 @@ class PersonalDataForm extends React.PureComponent {
             <label htmlFor="surname">
               Surname:
               <input
-                onChange={(event) => this.handleSurnameChange(event)}
+                onChange={(event) => this.handleChange(event, "surname")}
                 value={this.state.surname}
                 id="surname"
                 type="text"
@@ -80,7 +53,7 @@ class PersonalDataForm extends React.PureComponent {
             <label htmlFor="email">
               E-mail:
               <input
-                onChange={(event) => this.handleEmailChange(event)}
+                onChange={(event) => this.handleChange(event, "email")}
                 value={this.state.email}
                 id="email"
                 type="email"
@@ -91,7 +64,7 @@ class PersonalDataForm extends React.PureComponent {
             <label htmlFor="phone">
               Phone:
               <input
-                onChange={(event) => this.handleTelChange(event)}
+                onChange={(event) => this.handleChange(event, "tel")}
                 value={this.state.tel}
                 id="phone"
                 type="tel"

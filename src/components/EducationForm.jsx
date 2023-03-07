@@ -14,9 +14,16 @@ class EducationForm extends React.PureComponent {
 
   handleDelete = (schoolKey) => {
     const { schools } = this.state;
-    this.setState({
-      schools: schools.filter((searched) => searched.id !== schoolKey),
-    });
+    this.setState(
+      {
+        schools: schools.filter((searched) => searched.id !== schoolKey),
+      },
+      () => {
+        // eslint-disable-next-line react/destructuring-assignment
+        // eslint-disable-next-line react/destructuring-assignment
+        this.props.onChange(this.state.schools);
+      }
+    );
   };
 
   handleSchoolChanges = (updatedSchool) => {
