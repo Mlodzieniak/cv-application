@@ -3,16 +3,16 @@
 import React from "react";
 import propTypes from "prop-types";
 
-class School extends React.PureComponent {
+class Job extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      fos: "",
-      degree: "",
+      company: "",
+      position: "",
+      description: "",
       start: "",
       end: "",
-      id: this.props.schoolId,
+      id: this.props.jobId,
     };
   }
 
@@ -26,42 +26,37 @@ class School extends React.PureComponent {
   };
 
   render() {
-    const { schoolId, onDelete } = this.props;
-    const { name, fos, degree, start, end } = this.state;
+    const { jobId, onDelete } = this.props;
+    const { company, position, description, start, end } = this.state;
     return (
-      <div className="school">
+      <div className="job">
         <form method="get">
-          <label htmlFor="schoolName">
-            School name:
+          <label htmlFor="jobName">
+            Company:
             <input
-              value={name}
-              onChange={(event) => this.handleChangesName(event, "name")}
+              value={company}
+              onChange={(event) => this.handleChangesName(event, "company")}
               type="text"
-              id="schoolName"
+              id="jobName"
             />
           </label>
           <label htmlFor="field">
-            Field of study:
+            Position:
             <input
-              value={fos}
-              onChange={(event) => this.handleChangesName(event, "fos")}
+              value={position}
+              onChange={(event) => this.handleChangesName(event, "position")}
               type="text"
               id="field"
             />
           </label>
-          <label htmlFor="degree">
-            Degree:
-            <select
-              value={degree}
-              onChange={(event) => this.handleChangesName(event, "degree")}
+          <label htmlFor="description">
+            Description:
+            <input
+              value={description}
+              onChange={(event) => this.handleChangesName(event, "description")}
               type="text"
-              id="degree"
-            >
-              <option value="Bachelors">Bachelors</option>
-              <option value="Masters">Masters</option>
-              <option value="Doctors">Doctors</option>
-              <option value="High school">High school</option>
-            </select>
+              id="description"
+            />
           </label>
           <label htmlFor="start">
             Start year:
@@ -85,17 +80,17 @@ class School extends React.PureComponent {
             />
           </label>
         </form>
-        <button onClick={() => onDelete(schoolId)} type="button">
+        <button onClick={() => onDelete(jobId)} type="button">
           ❌
         </button>
       </div>
     );
   }
 }
-School.propTypes = {
-  schoolId: propTypes.string.isRequired,
+Job.propTypes = {
+  jobId: propTypes.string.isRequired,
   onDelete: propTypes.func.isRequired,
   onChange: propTypes.func.isRequired,
 };
 
-export default School;
+export default Job;

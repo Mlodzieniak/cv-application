@@ -18,7 +18,7 @@ class PersonalDataForm extends React.PureComponent {
       {
         [key]: event.target.value,
       },
-      () => this.props.onChange(this.state)
+      () => this.props.onChange(this.state, "personalData")
     );
   };
 

@@ -4,12 +4,8 @@ import propTypes from "prop-types";
 import uniqid from "uniqid";
 
 class Overview extends React.PureComponent {
-  // constructor(props) {
-  //   super(props);
-  // }
-
   render() {
-    const { personalData, education } = this.props;
+    const { personalData, education, jobs } = this.props;
     return (
       <div className="overview bg-lb">
         <h1>Name: {personalData.name}</h1>
@@ -28,6 +24,18 @@ class Overview extends React.PureComponent {
             </div>
           ))}
         </div>
+        <div>
+          {jobs.map((job) => (
+            <div key={uniqid()}>
+              {" "}
+              <p className="">Company: {job.company}</p>
+              <p className="">Position: {job.position}</p>
+              <p className="">Description: {job.description}</p>
+              <p className="">Start year: {job.start}</p>
+              <p className="">End year: {job.end}</p>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -40,6 +48,7 @@ Overview.defaultProps = {
     tel: "",
   },
   education: [],
+  jobs: [],
 };
 Overview.propTypes = {
   personalData: propTypes.shape({
@@ -49,6 +58,7 @@ Overview.propTypes = {
     tel: propTypes.string,
   }),
   education: propTypes.array,
+  jobs: propTypes.array,
 };
 
 export default Overview;

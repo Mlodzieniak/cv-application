@@ -21,7 +21,7 @@ class EducationForm extends React.PureComponent {
       () => {
         // eslint-disable-next-line react/destructuring-assignment
         // eslint-disable-next-line react/destructuring-assignment
-        this.props.onChange(this.state.schools);
+        this.props.onChange(this.state.schools, "education");
       }
     );
   };
@@ -38,7 +38,7 @@ class EducationForm extends React.PureComponent {
       () => {
         // eslint-disable-next-line react/destructuring-assignment
         // eslint-disable-next-line react/destructuring-assignment
-        this.props.onChange(this.state.schools);
+        this.props.onChange(this.state.schools, "education");
       }
     );
   };
