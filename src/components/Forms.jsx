@@ -19,26 +19,21 @@ class Forms extends React.PureComponent {
     };
   }
 
+  componentDidMount() {
+    console.log("mount Forms");
+    this.applyForm();
+  }
+
   handleChange = (newForm, key) => {
     this.setState({
       [key]: newForm,
     });
   };
-  // handlePersonalDataChange = (newForm) => {
-  //   this.setState({
-  //     personalData: newForm,
-  //   });
-  // };
-
-  // handleEducationChange = (newSchools) => {
-  //   this.setState({
-  //     education: newSchools,
-  //   });
-  // };
 
   applyForm = () => {
     const { personalData, education, jobs } = this.state;
     this.props.onChange(personalData, education, jobs);
+    console.log(this.state);
   };
 
   moveLeft() {

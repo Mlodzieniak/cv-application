@@ -13,12 +13,30 @@ class PersonalDataForm extends React.PureComponent {
     };
   }
 
+  componentDidMount() {
+    if ("personalData" in localStorage) {
+      const data = JSON.parse(localStorage.getItem("personalData"));
+      this.setState(
+        {
+          name: data.name,
+          surname: data.surname,
+          email: data.email,
+          tel: data.tel,
+        },
+        () => this.props.onChange(this.state, "personalData")
+      );
+    }
+  }
+
   handleChange = (event, key) => {
     this.setState(
       {
         [key]: event.target.value,
       },
-      () => this.props.onChange(this.state, "personalData")
+      () => {
+        this.props.onChange(this.state, "personalData");
+        localStorage.setItem("personalData", JSON.stringify(this.state));
+      }
     );
   };
 

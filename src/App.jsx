@@ -18,7 +18,6 @@ class App extends React.PureComponent {
   }
 
   handleStateChange = (newPersonalData, newEducation, newJobs) => {
-    console.log(newPersonalData, newEducation, newJobs);
     this.setState({ personalData: newPersonalData });
     this.setState({ education: newEducation });
     this.setState({ jobs: newJobs });
