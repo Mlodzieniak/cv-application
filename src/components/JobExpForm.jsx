@@ -12,6 +12,22 @@ class JobForm extends React.PureComponent {
     };
   }
 
+  componentDidMount() {
+    if ("jobs" in localStorage) {
+      const saved = JSON.parse(localStorage.getItem("jobs"));
+      this.setState(
+        {
+          jobs: saved.jobs,
+        },
+        () => {
+          const { onChange } = this.props;
+          const { jobs } = this.state;
+          onChange(jobs, "jobs");
+        }
+      );
+    }
+  }
+
   handleDelete = (jobKey) => {
     const { jobs } = this.state;
     this.setState(
@@ -39,6 +55,7 @@ class JobForm extends React.PureComponent {
         // eslint-disable-next-line react/destructuring-assignment
         // eslint-disable-next-line react/destructuring-assignment
         this.props.onChange(this.state.jobs, "jobs");
+        localStorage.setItem("jobs", JSON.stringify(this.state));
       }
     );
   };
@@ -56,6 +73,7 @@ class JobForm extends React.PureComponent {
               onDelete={this.handleDelete}
               key={pos.id}
               onChange={this.handleJobChanges}
+              inputs={pos}
             />
           ))}
         </div>

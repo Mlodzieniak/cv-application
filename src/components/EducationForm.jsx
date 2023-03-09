@@ -12,6 +12,23 @@ class EducationForm extends React.PureComponent {
     };
   }
 
+  componentDidMount() {
+    if ("education" in localStorage) {
+      const edu = JSON.parse(localStorage.getItem("education"));
+      console.log(edu.schools);
+      this.setState(
+        {
+          schools: edu.schools,
+        },
+        () => {
+          const { onChange } = this.props;
+          const { schools } = this.state;
+          onChange(schools, "education");
+        }
+      );
+    }
+  }
+
   handleDelete = (schoolKey) => {
     const { schools } = this.state;
     this.setState(
@@ -39,6 +56,7 @@ class EducationForm extends React.PureComponent {
         // eslint-disable-next-line react/destructuring-assignment
         // eslint-disable-next-line react/destructuring-assignment
         this.props.onChange(this.state.schools, "education");
+        localStorage.setItem("education", JSON.stringify(this.state));
       }
     );
   };
@@ -56,6 +74,7 @@ class EducationForm extends React.PureComponent {
               onDelete={this.handleDelete}
               key={pos.id}
               onChange={this.handleSchoolChanges}
+              inputs={pos}
             />
           ))}
         </div>

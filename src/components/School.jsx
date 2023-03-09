@@ -6,14 +6,25 @@ import propTypes from "prop-types";
 class School extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      name: "",
-      fos: "",
-      degree: "",
-      start: "",
-      end: "",
-      id: this.props.schoolId,
-    };
+    if (this.props.inputs) {
+      this.state = {
+        name: this.props.inputs.name,
+        fos: this.props.inputs.fos,
+        degree: this.props.inputs.degree,
+        start: this.props.inputs.start,
+        end: this.props.inputs.end,
+        id: this.props.schoolId,
+      };
+    } else {
+      this.state = {
+        name: "",
+        fos: "",
+        degree: "Bachelors",
+        start: "",
+        end: "",
+        id: this.props.schoolId,
+      };
+    }
   }
 
   handleChangesName = (event, key) => {
@@ -96,6 +107,13 @@ School.propTypes = {
   schoolId: propTypes.string.isRequired,
   onDelete: propTypes.func.isRequired,
   onChange: propTypes.func.isRequired,
+  inputs: propTypes.shape({
+    name: propTypes.string.isRequired,
+    fos: propTypes.string.isRequired,
+    degree: propTypes.string.isRequired,
+    start: propTypes.string.isRequired,
+    end: propTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default School;

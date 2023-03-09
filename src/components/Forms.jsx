@@ -20,7 +20,6 @@ class Forms extends React.PureComponent {
   }
 
   componentDidMount() {
-    console.log("mount Forms");
     this.applyForm();
   }
 
@@ -33,7 +32,6 @@ class Forms extends React.PureComponent {
   applyForm = () => {
     const { personalData, education, jobs } = this.state;
     this.props.onChange(personalData, education, jobs);
-    console.log(this.state);
   };
 
   moveLeft() {
