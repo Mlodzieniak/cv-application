@@ -65,7 +65,7 @@ class Job extends React.PureComponent {
     const { jobId, onDelete } = this.props;
     const { company, position, description, start, end } = this.state;
     return (
-      <div className="job">
+      <div className="job-form radius bg-lb">
         <form method="get">
           <label htmlFor="jobName">
             Company:

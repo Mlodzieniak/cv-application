@@ -47,7 +47,7 @@ class PersonalDataForm extends React.PureComponent {
         <form className="flex-col" method="get">
           <div className="input">
             <label htmlFor="name">
-              Name:
+              <div className="label">Name:</div>
               <input
                 onChange={(event) => this.handleChange(event, "name")}
                 value={this.state.name}

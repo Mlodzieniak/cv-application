@@ -65,7 +65,18 @@ class EducationForm extends React.PureComponent {
 
     return (
       <div className="form">
-        <h2>EducationForm</h2>
+        {/* <h2>Education</h2> */}
+        <button
+          onClick={() =>
+            this.setState((prevState) => ({
+              schools: [{ id: uniqid() }, ...prevState.schools],
+            }))
+          }
+          type="button"
+          className="bg-yellow add-btn shadow fff radius margin"
+        >
+          New school
+        </button>
         <div className="list">
           {schools.map((pos) => (
             <School
@@ -77,16 +88,6 @@ class EducationForm extends React.PureComponent {
             />
           ))}
         </div>
-        <button
-          onClick={() =>
-            this.setState((prevState) => ({
-              schools: [{ id: uniqid() }, ...prevState.schools],
-            }))
-          }
-          type="button"
-        >
-          New school
-        </button>
       </div>
     );
   }

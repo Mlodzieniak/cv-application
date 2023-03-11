@@ -65,7 +65,17 @@ class JobForm extends React.PureComponent {
 
     return (
       <div className="form">
-        <h2>JobForm</h2>
+        <button
+          onClick={() =>
+            this.setState((prevState) => ({
+              jobs: [{ id: uniqid() }, ...prevState.jobs],
+            }))
+          }
+          type="button"
+          className="bg-yellow add-btn shadow fff radius margin"
+        >
+          New job
+        </button>
         <div className="list">
           {jobs.map((pos) => (
             <Job
@@ -77,16 +87,6 @@ class JobForm extends React.PureComponent {
             />
           ))}
         </div>
-        <button
-          onClick={() =>
-            this.setState((prevState) => ({
-              jobs: [{ id: uniqid() }, ...prevState.jobs],
-            }))
-          }
-          type="button"
-        >
-          New job
-        </button>
       </div>
     );
   }

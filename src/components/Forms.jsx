@@ -76,7 +76,7 @@ class Forms extends React.PureComponent {
             <button
               onClick={this.applyForm}
               type="button"
-              className="apply bold font1"
+              className="apply bold font1 "
             >
               Apply
             </button>
