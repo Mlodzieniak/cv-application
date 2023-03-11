@@ -26,24 +26,44 @@
 .overview {
   grid-area: overview;
   border-left: black solid 1px;
-  padding: 1rem;
+  padding: 1.5rem;
 }
 
 .names,
 .email,
-.phone {
+.phone,
+.adress,
+.linked {
   display: flex;
   gap: 0.5rem;
 
 }
 
+.school,
+.job {
+  display: flex;
+  gap: 1.5rem;
+}
+
+/* .duty{
+  content: "&#x2022;";
+} */
+
+
+
+.span {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-top: 1rem;
+}
+
 .overview * {
   font-family: 'EB Garamond', serif;
+  text-align: left;
 }
 
 li {
   text-decoration: none;
-  list-style-type: none;
+  /* list-style-type: none; */
 }
 
 .footer {

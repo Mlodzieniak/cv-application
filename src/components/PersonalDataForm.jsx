@@ -12,6 +12,7 @@ class PersonalDataForm extends React.PureComponent {
       tel: "",
       city: "",
       street: "",
+      linked: "",
       about: "",
     };
   }
