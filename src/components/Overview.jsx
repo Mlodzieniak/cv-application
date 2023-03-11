@@ -8,31 +8,44 @@ class Overview extends React.PureComponent {
     const { personalData, education, jobs } = this.props;
     return (
       <div className="overview bg-lb">
-        <h1>Name: {personalData.name}</h1>
-        <h1>Surname: {personalData.surname}</h1>
-        <h1>e-mail: {personalData.email}</h1>
-        <h1>tel: {personalData.tel}</h1>
-        <div>
+        <div className="names">
+          <h1>Name: {personalData.name}</h1>
+          <h1>Surname: {personalData.surname}</h1>
+        </div>
+        <div className="contact">
+          <h1>e-mail: {personalData.email}</h1>
+          <h1>tel: {personalData.tel}</h1>
+        </div>
+        <div className="experience">
+          {jobs.map((job) => (
+            <div className="job" key={uniqid()}>
+              {" "}
+              <p className="years">
+                {job.start} - {job.end}
+              </p>
+              <div className="job-main">
+                <p className="">{job.position}</p>
+                <p className="">{job.company}</p>
+                <ul>
+                  {job.description.map((desc) => (
+                    <li key={uniqid()} className="duty">
+                      {desc.text}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="education">
           {education.map((school) => (
-            <div key={uniqid()}>
+            <div className="school" key={uniqid()}>
               {" "}
               <p className="">School name: {school.name}</p>
               <p className="">Field of study: {school.fos}</p>
               <p className="">Degree: {school.degree}</p>
               <p className="">Start year: {school.start}</p>
               <p className="">End year: {school.end}</p>
-            </div>
-          ))}
-        </div>
-        <div>
-          {jobs.map((job) => (
-            <div key={uniqid()}>
-              {" "}
-              <p className="">Company: {job.company}</p>
-              <p className="">Position: {job.position}</p>
-              <p className="">Description: {job.description}</p>
-              <p className="">Start year: {job.start}</p>
-              <p className="">End year: {job.end}</p>
             </div>
           ))}
         </div>

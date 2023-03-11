@@ -1,7 +1,9 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable import/no-extraneous-dependencies */
 import React from "react";
-import propTypes from "prop-types";
+import propTypes, { any } from "prop-types";
+import uniqid from "uniqid";
+import Duty from "./Duty";
 
 class Job extends React.PureComponent {
   constructor(props) {
@@ -15,15 +17,6 @@ class Job extends React.PureComponent {
         end: this.props.inputs.end,
         id: this.props.jobId,
       };
-    } else {
-      this.state = {
-        company: "",
-        position: "",
-        description: "",
-        start: "",
-        end: "",
-        id: this.props.jobId,
-      };
     }
   }
 
@@ -34,6 +27,38 @@ class Job extends React.PureComponent {
       },
       () => this.props.onChange(this.state)
     );
+  };
+
+  changeDesc = (duty) => {
+    const { description } = this.state;
+    const index = description.findIndex((desc) => desc.id === duty.id);
+    const newArr = [...description];
+    newArr[index] = duty;
+    this.setState(
+      {
+        description: newArr,
+      },
+      () => this.props.onChange(this.state)
+    );
+  };
+
+  addDesc = () => {
+    this.setState((prevState) => ({
+      description: [
+        ...prevState.description,
+        {
+          text: "",
+          id: uniqid(),
+        },
+      ],
+    }));
+  };
+
+  deleteDesc = (jobKey) => {
+    const { description } = this.state;
+    this.setState({
+      description: description.filter((searched) => searched.id !== jobKey),
+    });
   };
 
   render() {
@@ -61,13 +86,19 @@ class Job extends React.PureComponent {
             />
           </label>
           <label htmlFor="description">
-            Description:
-            <input
-              value={description}
-              onChange={(event) => this.handleChanges(event, "description")}
-              type="text"
-              id="description"
-            />
+            Duties:
+            <button type="button" onClick={this.addDesc}>
+              +
+            </button>
+            {description.map((desc) => (
+              <Duty
+                onDelete={this.deleteDesc}
+                onChange={this.changeDesc}
+                value={desc.text}
+                key={desc.id}
+                id={desc.id}
+              />
+            ))}
           </label>
           <label htmlFor="start">
             Start year:
@@ -98,17 +129,25 @@ class Job extends React.PureComponent {
     );
   }
 }
+Job.defaultProps = {
+  inputs: {
+    company: "",
+    position: "",
+    description: [""],
+  },
+};
 Job.propTypes = {
   jobId: propTypes.string.isRequired,
   onDelete: propTypes.func.isRequired,
   onChange: propTypes.func.isRequired,
   inputs: propTypes.shape({
-    company: propTypes.string.isRequired,
-    position: propTypes.string.isRequired,
-    description: propTypes.string.isRequired,
-    start: propTypes.string.isRequired,
-    end: propTypes.string.isRequired,
-  }).isRequired,
+    company: propTypes.string,
+    position: propTypes.string,
+    // eslint-disable-next-line react/forbid-prop-types
+    description: propTypes.arrayOf(any),
+    start: propTypes.string,
+    end: propTypes.string,
+  }),
 };
 
 export default Job;

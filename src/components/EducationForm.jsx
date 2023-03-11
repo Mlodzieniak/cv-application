@@ -15,7 +15,6 @@ class EducationForm extends React.PureComponent {
   componentDidMount() {
     if ("education" in localStorage) {
       const edu = JSON.parse(localStorage.getItem("education"));
-      console.log(edu.schools);
       this.setState(
         {
           schools: edu.schools,
