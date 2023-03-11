@@ -35,13 +35,17 @@ class Duty extends React.PureComponent {
     const { onDelete } = this.props;
     return (
       <div className="duty">
-        <input
+        <textarea
           value={text}
           onChange={(event) => this.update(event)}
           type="text"
         />
-        <button onClick={() => onDelete(id)} type="button">
-          -
+        <button
+          className="duty-delete-btn"
+          onClick={() => onDelete(id)}
+          type="button"
+        >
+          ❌
         </button>
       </div>
     );

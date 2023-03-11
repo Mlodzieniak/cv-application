@@ -8,13 +8,23 @@ import Duty from "./Duty";
 class Job extends React.PureComponent {
   constructor(props) {
     super(props);
-    if (this.props.inputs) {
+
+    if (this.props.inputs.description) {
       this.state = {
         company: this.props.inputs.company,
         position: this.props.inputs.position,
         description: this.props.inputs.description,
         start: this.props.inputs.start,
         end: this.props.inputs.end,
+        id: this.props.jobId,
+      };
+    } else {
+      this.state = {
+        company: "",
+        position: "",
+        description: [],
+        start: "",
+        end: "",
         id: this.props.jobId,
       };
     }
@@ -56,18 +66,21 @@ class Job extends React.PureComponent {
 
   deleteDesc = (jobKey) => {
     const { description } = this.state;
-    this.setState({
-      description: description.filter((searched) => searched.id !== jobKey),
-    });
+    this.setState(
+      {
+        description: description.filter((searched) => searched.id !== jobKey),
+      },
+      () => this.props.onChange(this.state)
+    );
   };
 
   render() {
     const { jobId, onDelete } = this.props;
     const { company, position, description, start, end } = this.state;
     return (
-      <div className="job-form radius bg-lb">
-        <form method="get">
-          <label htmlFor="jobName">
+      <div className="radius bg-lb">
+        <form method="get" className="job-form">
+          <label htmlFor="jobName" className="job-name">
             Company:
             <input
               value={company}
@@ -76,7 +89,7 @@ class Job extends React.PureComponent {
               id="jobName"
             />
           </label>
-          <label htmlFor="field">
+          <label htmlFor="field" className="job-pos">
             Position:
             <input
               value={position}
@@ -85,10 +98,13 @@ class Job extends React.PureComponent {
               id="field"
             />
           </label>
-          <label htmlFor="description">
-            Duties:
-            <button type="button" onClick={this.addDesc}>
-              +
+          <label htmlFor="description" className="job-desc">
+            <button
+              className="bg-yellow add-btn shadow fff radius margin"
+              type="button"
+              onClick={this.addDesc}
+            >
+              Add duty
             </button>
             {description.map((desc) => (
               <Duty
@@ -100,7 +116,7 @@ class Job extends React.PureComponent {
               />
             ))}
           </label>
-          <label htmlFor="start">
+          <label htmlFor="start" className="job-start">
             Start year:
             <input
               value={start}
@@ -111,7 +127,7 @@ class Job extends React.PureComponent {
               max={new Date().getFullYear()}
             />
           </label>
-          <label htmlFor="end">
+          <label htmlFor="end" className="job-end">
             End year:
             <input
               value={end}
@@ -121,10 +137,14 @@ class Job extends React.PureComponent {
               min={this.state.start ? this.state.start : "2030"}
             />
           </label>
+          <button
+            className="school-delete-btn"
+            onClick={() => onDelete(jobId)}
+            type="button"
+          >
+            ❌
+          </button>
         </form>
-        <button onClick={() => onDelete(jobId)} type="button">
-          ❌
-        </button>
       </div>
     );
   }
@@ -134,6 +154,7 @@ Job.defaultProps = {
     company: "",
     position: "",
     description: [""],
+    start: "",
   },
 };
 Job.propTypes = {

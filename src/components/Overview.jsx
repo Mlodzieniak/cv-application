@@ -7,15 +7,20 @@ class Overview extends React.PureComponent {
   render() {
     const { personalData, education, jobs } = this.props;
     return (
-      <div className="overview bg-lb">
+      <div className="overview bg-white">
         <div className="names">
-          <h1>Name: {personalData.name}</h1>
-          <h1>Surname: {personalData.surname}</h1>
+          <h1>{personalData.name}</h1>
+          <h1>{personalData.surname}</h1>
         </div>
-        <div className="contact">
-          <h1>e-mail: {personalData.email}</h1>
-          <h1>tel: {personalData.tel}</h1>
+        <div className="email">
+          <h3>E-mail </h3>
+          <p>{personalData.email}</p>
         </div>
+        <div className="phone">
+          <h3>Tel </h3>
+          <p>{personalData.tel}</p>
+        </div>
+        <p>{personalData.about}</p>
         <div className="experience">
           {jobs.map((job) => (
             <div className="job" key={uniqid()}>
@@ -59,6 +64,7 @@ Overview.defaultProps = {
     surname: "",
     email: "",
     tel: "",
+    about: "",
   },
   education: [],
   jobs: [],
@@ -69,6 +75,7 @@ Overview.propTypes = {
     surname: propTypes.string,
     email: propTypes.string,
     tel: propTypes.string,
+    about: propTypes.string,
   }),
   education: propTypes.array,
   jobs: propTypes.array,

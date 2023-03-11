@@ -19,13 +19,31 @@
 .forms {
   grid-area: forms;
   overflow: hidden;
-  /* overflow-y: scroll; */
   flex-wrap: nowrap;
   position: relative;
 }
 
 .overview {
   grid-area: overview;
+  border-left: black solid 1px;
+  padding: 1rem;
+}
+
+.names,
+.email,
+.phone {
+  display: flex;
+  gap: 0.5rem;
+
+}
+
+.overview * {
+  font-family: 'EB Garamond', serif;
+}
+
+li {
+  text-decoration: none;
+  list-style-type: none;
 }
 
 .footer {
@@ -185,10 +203,31 @@
   padding: 10px;
   display: grid;
   grid-template-areas:
-    "name name"
-    "fos degree"
-    "start end";
+    "name position"
+    "start end"
+    "duties duties";
+
   position: relative;
+}
+
+.job-name {
+  grid-area: name;
+}
+
+.job-pos {
+  grid-area: position;
+}
+
+.job-start {
+  grid-area: start;
+}
+
+.job-end {
+  grid-area: end;
+}
+
+.job-desc {
+  grid-area: duties;
 }
 
 .school-delete-btn {
@@ -198,6 +237,26 @@
   background: none;
   border: none;
   cursor: pointer;
+}
+
+.duty {
+  position: relative;
+  width: 100%;
+}
+
+.duty-delete-btn {
+  position: absolute;
+  /* height: 100%; */
+  right: 5px;
+  bottom: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.duty-delete-btn:hover {
+  opacity: 1;
 }
 
 .add-btn {
@@ -238,8 +297,10 @@ label {
 
 
 input,
-select {
+select,
+textarea {
   font-size: 1rem;
   padding: 0.3rem;
   width: 100%;
+  resize: none;
 }
