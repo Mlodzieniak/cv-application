@@ -39,11 +39,11 @@ class Job extends React.PureComponent {
     );
   };
 
-  changeDesc = (duty) => {
+  changeDesc = (duty, id) => {
     const { description } = this.state;
-    const index = description.findIndex((desc) => desc.id === duty.id);
+    const index = description.findIndex((desc) => desc.id === id);
     const newArr = [...description];
-    newArr[index] = duty;
+    newArr[index].text = duty;
     this.setState(
       {
         description: newArr,
