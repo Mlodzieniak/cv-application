@@ -1,109 +1,101 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable import/no-extraneous-dependencies */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import propTypes from "prop-types";
 
-class School extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    if (this.props.inputs) {
-      this.state = {
-        name: this.props.inputs.name,
-        fos: this.props.inputs.fos,
-        degree: this.props.inputs.degree,
-        start: this.props.inputs.start,
-        end: this.props.inputs.end,
-        id: this.props.schoolId,
-      };
-    } else {
-      this.state = {
-        name: "",
-        fos: "",
-        degree: "Bachelors",
-        start: "",
-        end: "",
-        id: this.props.schoolId,
-      };
-    }
-  }
+function School(props) {
+  const { schoolId, onDelete, onChange, inputs } = props;
 
-  handleChangesName = (event, key) => {
-    this.setState(
-      {
-        [key]: event.target.value,
-      },
-      () => this.props.onChange(this.state)
-    );
+  const [name, setName] = useState(inputs.name ? inputs.name : "");
+  const [fos, setFos] = useState(inputs.fos ? inputs.fos : "");
+  const [degree, setDegree] = useState(
+    inputs.degree ? inputs.degree : "Bachelors"
+  );
+  const [start, setStart] = useState(inputs.start ? inputs.start : "");
+  const [end, setEnd] = useState(inputs.end ? inputs.end : "");
+
+  const handleChangeName = (e) => {
+    setName(e.target.value);
+  };
+  const handleChangeFos = (e) => {
+    setFos(e.target.value);
+  };
+  const handleChangeDegree = (e) => {
+    setDegree(e.target.value);
+  };
+  const handleChangeStart = (e) => {
+    setStart(e.target.value);
+  };
+  const handleChangeEnd = (e) => {
+    setEnd(e.target.value);
   };
 
-  render() {
-    const { schoolId, onDelete } = this.props;
-    const { name, fos, degree, start, end } = this.state;
-    return (
-      <form className="school-form radius bg-lb" method="get">
-        <label htmlFor="school-name" className="school-name">
-          School name:
-          <input
-            value={name}
-            onChange={(event) => this.handleChangesName(event, "name")}
-            type="text"
-            id="schoolName"
-          />
-        </label>
-        <label htmlFor="field" className="field">
-          Field of study:
-          <input
-            value={fos}
-            onChange={(event) => this.handleChangesName(event, "fos")}
-            type="text"
-            id="field"
-          />
-        </label>
-        <label htmlFor="degree" className="degree">
-          Degree:
-          <select
-            value={degree}
-            onChange={(event) => this.handleChangesName(event, "degree")}
-            type="text"
-            id="degree"
-          >
-            <option value="Bachelors">Bachelors</option>
-            <option value="Masters">Masters</option>
-            <option value="Doctors">Doctors</option>
-            <option value="High school">High school</option>
-          </select>
-        </label>{" "}
-        <label htmlFor="start" className="start">
-          Start year:
-          <input
-            value={start}
-            onChange={(event) => this.handleChangesName(event, "start")}
-            type="number"
-            id="start"
-            min="1950"
-            max={new Date().getFullYear()}
-          />
-        </label>
-        <label htmlFor="end" className="end">
-          End year:
-          <input
-            value={end}
-            onChange={(event) => this.handleChangesName(event, "end")}
-            type="number"
-            id="end"
-            min={this.state.start ? this.state.start : "2030"}
-          />
-        </label>
-        <button
-          onClick={() => onDelete(schoolId)}
-          type="button"
-          className="school-delete-btn"
+  useEffect(() => {
+    const states = { name, fos, degree, start, end, id: schoolId };
+    onChange(states);
+  }, [name, fos, degree, start, end]);
+  return (
+    <form className="school-form radius bg-lb" method="get">
+      <label htmlFor="school-name" className="school-name">
+        School name:
+        <input
+          value={name}
+          onChange={(event) => handleChangeName(event, "name")}
+          type="text"
+          id="schoolName"
+        />
+      </label>
+      <label htmlFor="field" className="field">
+        Field of study:
+        <input
+          value={fos}
+          onChange={(event) => handleChangeFos(event, "fos")}
+          type="text"
+          id="field"
+        />
+      </label>
+      <label htmlFor="degree" className="degree">
+        Degree:
+        <select
+          value={degree}
+          onChange={(event) => handleChangeDegree(event, "degree")}
+          type="text"
+          id="degree"
         >
-          ❌
-        </button>
-      </form>
-    );
-  }
+          <option value="Bachelors">Bachelors</option>
+          <option value="Masters">Masters</option>
+          <option value="Doctors">Doctors</option>
+          <option value="High school">High school</option>
+        </select>
+      </label>{" "}
+      <label htmlFor="start" className="start">
+        Start year:
+        <input
+          value={start}
+          onChange={(event) => handleChangeStart(event, "start")}
+          type="number"
+          id="start"
+          min="1950"
+          max={new Date().getFullYear()}
+        />
+      </label>
+      <label htmlFor="end" className="end">
+        End year:
+        <input
+          value={end}
+          onChange={(event) => handleChangeEnd(event, "end")}
+          type="number"
+          id="end"
+          min={start || "2030"}
+        />
+      </label>
+      <button
+        onClick={() => onDelete(schoolId)}
+        type="button"
+        className="school-delete-btn"
+      >
+        ❌
+      </button>
+    </form>
+  );
 }
 School.propTypes = {
   schoolId: propTypes.string.isRequired,
