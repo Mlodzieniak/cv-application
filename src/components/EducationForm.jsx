@@ -1,96 +1,64 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import uniqid from "uniqid";
 import propTypes from "prop-types";
 import School from "./School";
 
-class EducationForm extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      schools: [],
-    };
-  }
-
-  componentDidMount() {
+function EducationForm(props) {
+  const { onChange } = props;
+  const getFromStorage = () => {
     if ("education" in localStorage) {
       const edu = JSON.parse(localStorage.getItem("education"));
-      this.setState(
-        {
-          schools: edu.schools,
-        },
-        () => {
-          const { onChange } = this.props;
-          const { schools } = this.state;
-          onChange(schools, "education");
-        }
-      );
+      return edu;
     }
-  }
+    return [];
+  };
+  const [schools, setSchools] = useState(getFromStorage());
 
-  handleDelete = (schoolKey) => {
-    const { schools } = this.state;
-    this.setState(
-      {
-        schools: schools.filter((searched) => searched.id !== schoolKey),
-      },
-      () => {
-        // eslint-disable-next-line react/destructuring-assignment
-        // eslint-disable-next-line react/destructuring-assignment
-        this.props.onChange(this.state.schools, "education");
-      }
-    );
+  const saveToStorage = () => {
+    localStorage.setItem("education", JSON.stringify(schools));
+  };
+  useEffect(() => {
+    getFromStorage();
+  }, []);
+
+  useEffect(() => {
+    onChange(schools, "education");
+    saveToStorage();
+  }, [schools]);
+
+  const handleDelete = (schoolKey) => {
+    setSchools(schools.filter((searched) => searched.id !== schoolKey));
   };
 
-  handleSchoolChanges = (updatedSchool) => {
-    const { schools } = this.state;
+  const handleSchoolChanges = (updatedSchool) => {
     const newSchools = [...schools];
     const found = newSchools.findIndex((pos) => pos.id === updatedSchool.id);
     newSchools[found] = updatedSchool;
-    this.setState(
-      {
-        schools: newSchools,
-      },
-      () => {
-        // eslint-disable-next-line react/destructuring-assignment
-        // eslint-disable-next-line react/destructuring-assignment
-        this.props.onChange(this.state.schools, "education");
-        localStorage.setItem("education", JSON.stringify(this.state));
-      }
-    );
+    setSchools(newSchools);
   };
 
-  render() {
-    const { schools } = this.state;
-
-    return (
-      <div className="form">
-        {/* <h2>Education</h2> */}
-        <button
-          onClick={() =>
-            this.setState((prevState) => ({
-              schools: [{ id: uniqid() }, ...prevState.schools],
-            }))
-          }
-          type="button"
-          className="bg-yellow add-btn shadow fff radius margin"
-        >
-          New school
-        </button>
-        <div className="list">
-          {schools.map((pos) => (
-            <School
-              schoolId={pos.id}
-              onDelete={this.handleDelete}
-              key={pos.id}
-              onChange={this.handleSchoolChanges}
-              inputs={pos}
-            />
-          ))}
-        </div>
+  return (
+    <div className="form">
+      <button
+        onClick={() => setSchools([{ id: uniqid() }, ...schools])}
+        type="button"
+        className="bg-yellow add-btn shadow fff radius margin"
+      >
+        New school
+      </button>
+      <div className="list">
+        {schools.map((pos) => (
+          <School
+            schoolId={pos.id}
+            onDelete={handleDelete}
+            key={pos.id}
+            onChange={handleSchoolChanges}
+            inputs={pos}
+          />
+        ))}
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 EducationForm.propTypes = {
