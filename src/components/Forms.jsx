@@ -1,101 +1,77 @@
-/* eslint-disable react/destructuring-assignment */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import propTypes from "prop-types";
 import PersonalDataForm from "./PersonalDataForm";
 import EducationForm from "./EducationForm";
 import JobExpForm from "./JobExpForm";
 
-class Forms extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.moveLeft = this.moveLeft.bind(this);
-    this.moveRight = this.moveRight.bind(this);
+function Forms(props) {
+  const { onChange } = props;
+  const [left, setLeft] = useState(0);
+  const [personalData, setPersonalData] = useState({});
+  const [education, setEducation] = useState([]);
+  const [jobs, setJobs] = useState([]);
 
-    this.state = {
-      left: 0,
-      personalData: {},
-      education: [],
-      jobs: [],
-    };
-  }
-
-  componentDidMount() {
-    this.applyForm();
-  }
-
-  handleChange = (newForm, key) => {
-    this.setState({
-      [key]: newForm,
-    });
+  const changePersonalData = (newData) => {
+    setPersonalData(newData);
+  };
+  const changeEducationData = (newData) => {
+    setEducation(newData);
+  };
+  const changeJobs = (newData) => {
+    setJobs(newData);
   };
 
-  applyForm = () => {
-    const { personalData, education, jobs } = this.state;
-    this.props.onChange(personalData, education, jobs);
+  const moveLeft = () => {
+    setLeft(left + 40);
+    if (left >= 0) setLeft(0);
   };
 
-  moveLeft() {
-    this.setState((prevState) => ({ left: prevState.left + 40 }));
-    if (this.state.left >= 0) {
-      this.setState({
-        left: 0,
-      });
-    }
-  }
+  const moveRight = () => {
+    setLeft(left - 40);
+    if (left <= -80) setLeft(-80);
+  };
 
-  moveRight() {
-    this.setState((prevState) => ({ left: prevState.left - 40 }));
-    if (this.state.left <= -80) {
-      this.setState({
-        left: -80,
-      });
-    }
-  }
+  useEffect(() => onChange(personalData, education, jobs), []);
 
-  render() {
-    const { left } = this.state;
-    return (
-      <div className="forms bg-white">
-        <div
-          style={{ transform: `translateX(${left}vw)` }}
-          className="slider flex-row"
-        >
-          <PersonalDataForm onChange={this.handleChange} />
-          <EducationForm onChange={this.handleChange} />
-          <JobExpForm onChange={this.handleChange} />
-        </div>
-        <div className="nav-buttons flex-row space-between align-center bold">
-          <button
-            type="button"
-            onClick={this.moveLeft}
-            className="prev font2 bg-yellow rounded-button shadow"
-          >
-            <ion-icon name="chevron-back-outline" />{" "}
-          </button>
-          <nav className="bg-yellow shadow radius">
-            <button
-              onClick={this.applyForm}
-              type="button"
-              className="apply bold font1 "
-            >
-              Apply
-            </button>
-          </nav>
-          <button
-            type="button"
-            onClick={this.moveRight}
-            className="next font2 bg-yellow rounded-button shadow"
-          >
-            <ion-icon name="chevron-forward-outline" />{" "}
-          </button>
-        </div>
+  return (
+    <div className="forms bg-white">
+      <div
+        style={{ transform: `translateX(${left}vw)` }}
+        className="slider flex-row"
+      >
+        <PersonalDataForm onChange={changePersonalData} />
+        <EducationForm onChange={changeEducationData} />
+        <JobExpForm onChange={changeJobs} />
       </div>
-    );
-  }
+      <div className="nav-buttons flex-row space-between align-center bold">
+        <button
+          type="button"
+          onClick={moveLeft}
+          className="prev font2 bg-yellow rounded-button shadow"
+        >
+          <ion-icon name="chevron-back-outline" />{" "}
+        </button>
+        <nav className="bg-yellow shadow radius">
+          <button
+            onClick={() => onChange(personalData, education, jobs)}
+            type="button"
+            className="apply bold font1 "
+          >
+            Apply
+          </button>
+        </nav>
+        <button
+          type="button"
+          onClick={moveRight}
+          className="next font2 bg-yellow rounded-button shadow"
+        >
+          <ion-icon name="chevron-forward-outline" />{" "}
+        </button>
+      </div>
+    </div>
+  );
 }
-
-export default Forms;
-
 Forms.propTypes = {
   onChange: propTypes.func.isRequired,
 };
+export default Forms;
