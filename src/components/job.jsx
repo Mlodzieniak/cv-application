@@ -15,29 +15,6 @@ function Job(props) {
   const [start, setStart] = useState(inputs.start ? inputs.start : "");
   const [end, setEnd] = useState(inputs.end ? inputs.end : "");
 
-  // constructor(props) {
-  //   super(props);
-
-  //   if (this.props.inputs.description) {
-  //     this.state = {
-  //       company: this.props.inputs.company,
-  //       position: this.props.inputs.position,
-  //       description: this.props.inputs.description,
-  //       start: this.props.inputs.start,
-  //       end: this.props.inputs.end,
-  //       id: this.props.jobId,
-  //     };
-  //   } else {
-  //     this.state = {
-  //       company: "",
-  //       position: "",
-  //       description: [],
-  //       start: "",
-  //       end: "",
-  //       id: this.props.jobId,
-  //     };
-  //   }
-  // }
   const changeCompany = (e) => {
     setCompany(e.target.value);
   };
@@ -51,14 +28,6 @@ function Job(props) {
     setEnd(e.target.value);
   };
 
-  // handleChanges = (event, key) => {
-  //   this.setState(
-  //     {
-  //       [key]: event.target.value,
-  //     },
-  //     () => this.props.onChange(this.state)
-  //   );
-  // };
   const changeDesc = (duty, id) => {
     const index = description.findIndex((desc) => desc.id === id);
     const newArr = [...description];
@@ -66,60 +35,24 @@ function Job(props) {
     setDescription(newArr);
   };
 
-  // changeDesc = (duty, id) => {
-  //   const { description } = this.state;
-  //   const index = description.findIndex((desc) => desc.id === id);
-  //   const newArr = [...description];
-  //   newArr[index].text = duty;
-  //   this.setState(
-  //     {
-  //       description: newArr,
-  //     },
-  //     () => this.props.onChange(this.state)
-  //   );
-  // };
-
   const addDesc = () => {
     setDescription([
-      description,
+      ...description,
       {
         text: "",
         id: uniqid(),
       },
     ]);
   };
-  // addDesc = () => {
-  //   this.setState((prevState) => ({
-  //     description: [
-  //       ...prevState.description,
-  //       {
-  //         text: "",
-  //         id: uniqid(),
-  //       },
-  //     ],
-  //   }));
-  // };
+
   const deleteDesc = (jobKey) => {
     setDescription(description.filter((searched) => searched.id !== jobKey));
   };
 
-  // deleteDesc = (jobKey) => {
-  //   const { description } = this.state;
-  //   this.setState(
-  //     {
-  //       description: description.filter((searched) => searched.id !== jobKey),
-  //     },
-  //     () => this.props.onChange(this.state)
-  //   );
-  // };
-  // //
-  //   render() {
-  //     const { jobId, onDelete } = this.props;
-  //     const { company, position, description, start, end } = this.state;
   useEffect(() => {
     const myJob = { company, position, description, start, end, id: jobId };
     onChange(myJob);
-  });
+  }, [company, position, description, start, end]);
   return (
     <div className="radius bg-lb">
       <form method="get" className="job-form">

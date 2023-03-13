@@ -3,7 +3,7 @@ import propTypes from "prop-types";
 
 function Duty(props) {
   const { id, value, onChange, onDelete } = props;
-  const [text, setText] = useState(value);
+  const [text, setText] = useState(value || "");
   const update = (e) => {
     setText(e.target.value);
   };
