@@ -1,154 +1,197 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable import/no-extraneous-dependencies */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import propTypes, { any } from "prop-types";
 import uniqid from "uniqid";
 import Duty from "./Duty";
 
-class Job extends React.PureComponent {
-  constructor(props) {
-    super(props);
+function Job(props) {
+  const { jobId, onDelete, onChange, inputs } = props;
+  const [company, setCompany] = useState(inputs.company ? inputs.company : "");
+  const [position, setPosition] = useState(
+    inputs.position ? inputs.position : ""
+  );
+  const [description, setDescription] = useState(
+    inputs.description ? inputs.description : []
+  );
+  const [start, setStart] = useState(inputs.start ? inputs.start : "");
+  const [end, setEnd] = useState(inputs.end ? inputs.end : "");
 
-    if (this.props.inputs.description) {
-      this.state = {
-        company: this.props.inputs.company,
-        position: this.props.inputs.position,
-        description: this.props.inputs.description,
-        start: this.props.inputs.start,
-        end: this.props.inputs.end,
-        id: this.props.jobId,
-      };
-    } else {
-      this.state = {
-        company: "",
-        position: "",
-        description: [],
-        start: "",
-        end: "",
-        id: this.props.jobId,
-      };
-    }
-  }
+  // constructor(props) {
+  //   super(props);
 
-  handleChanges = (event, key) => {
-    this.setState(
-      {
-        [key]: event.target.value,
-      },
-      () => this.props.onChange(this.state)
-    );
+  //   if (this.props.inputs.description) {
+  //     this.state = {
+  //       company: this.props.inputs.company,
+  //       position: this.props.inputs.position,
+  //       description: this.props.inputs.description,
+  //       start: this.props.inputs.start,
+  //       end: this.props.inputs.end,
+  //       id: this.props.jobId,
+  //     };
+  //   } else {
+  //     this.state = {
+  //       company: "",
+  //       position: "",
+  //       description: [],
+  //       start: "",
+  //       end: "",
+  //       id: this.props.jobId,
+  //     };
+  //   }
+  // }
+  const changeCompany = (e) => {
+    setCompany(e.target.value);
+  };
+  const changePosition = (e) => {
+    setPosition(e.target.value);
+  };
+  const changeStart = (e) => {
+    setStart(e.target.value);
+  };
+  const changeEnd = (e) => {
+    setEnd(e.target.value);
   };
 
-  changeDesc = (duty, id) => {
-    const { description } = this.state;
+  // handleChanges = (event, key) => {
+  //   this.setState(
+  //     {
+  //       [key]: event.target.value,
+  //     },
+  //     () => this.props.onChange(this.state)
+  //   );
+  // };
+  const changeDesc = (duty, id) => {
     const index = description.findIndex((desc) => desc.id === id);
     const newArr = [...description];
     newArr[index].text = duty;
-    this.setState(
+    setDescription(newArr);
+  };
+
+  // changeDesc = (duty, id) => {
+  //   const { description } = this.state;
+  //   const index = description.findIndex((desc) => desc.id === id);
+  //   const newArr = [...description];
+  //   newArr[index].text = duty;
+  //   this.setState(
+  //     {
+  //       description: newArr,
+  //     },
+  //     () => this.props.onChange(this.state)
+  //   );
+  // };
+
+  const addDesc = () => {
+    setDescription([
+      description,
       {
-        description: newArr,
+        text: "",
+        id: uniqid(),
       },
-      () => this.props.onChange(this.state)
-    );
+    ]);
+  };
+  // addDesc = () => {
+  //   this.setState((prevState) => ({
+  //     description: [
+  //       ...prevState.description,
+  //       {
+  //         text: "",
+  //         id: uniqid(),
+  //       },
+  //     ],
+  //   }));
+  // };
+  const deleteDesc = (jobKey) => {
+    setDescription(description.filter((searched) => searched.id !== jobKey));
   };
 
-  addDesc = () => {
-    this.setState((prevState) => ({
-      description: [
-        ...prevState.description,
-        {
-          text: "",
-          id: uniqid(),
-        },
-      ],
-    }));
-  };
-
-  deleteDesc = (jobKey) => {
-    const { description } = this.state;
-    this.setState(
-      {
-        description: description.filter((searched) => searched.id !== jobKey),
-      },
-      () => this.props.onChange(this.state)
-    );
-  };
-
-  render() {
-    const { jobId, onDelete } = this.props;
-    const { company, position, description, start, end } = this.state;
-    return (
-      <div className="radius bg-lb">
-        <form method="get" className="job-form">
-          <label htmlFor="jobName" className="job-name">
-            Company:
-            <input
-              value={company}
-              onChange={(event) => this.handleChanges(event, "company")}
-              type="text"
-              id="jobName"
-            />
-          </label>
-          <label htmlFor="field" className="job-pos">
-            Position:
-            <input
-              value={position}
-              onChange={(event) => this.handleChanges(event, "position")}
-              type="text"
-              id="field"
-            />
-          </label>
-          <label htmlFor="description" className="job-desc">
-            <button
-              className="bg-yellow add-btn shadow fff radius margin"
-              type="button"
-              onClick={this.addDesc}
-            >
-              Add duty
-            </button>
-            {description.map((desc) => (
-              <Duty
-                onDelete={this.deleteDesc}
-                onChange={this.changeDesc}
-                value={desc.text}
-                key={desc.id}
-                id={desc.id}
-              />
-            ))}
-          </label>
-          <label htmlFor="start" className="job-start">
-            Start year:
-            <input
-              value={start}
-              onChange={(event) => this.handleChanges(event, "start")}
-              type="number"
-              id="start"
-              min="1950"
-              max={new Date().getFullYear()}
-            />
-          </label>
-          <label htmlFor="end" className="job-end">
-            End year:
-            <input
-              value={end}
-              onChange={(event) => this.handleChanges(event, "end")}
-              type="number"
-              id="end"
-              min={this.state.start ? this.state.start : "2030"}
-            />
-          </label>
+  // deleteDesc = (jobKey) => {
+  //   const { description } = this.state;
+  //   this.setState(
+  //     {
+  //       description: description.filter((searched) => searched.id !== jobKey),
+  //     },
+  //     () => this.props.onChange(this.state)
+  //   );
+  // };
+  // //
+  //   render() {
+  //     const { jobId, onDelete } = this.props;
+  //     const { company, position, description, start, end } = this.state;
+  useEffect(() => {
+    const myJob = { company, position, description, start, end, id: jobId };
+    onChange(myJob);
+  });
+  return (
+    <div className="radius bg-lb">
+      <form method="get" className="job-form">
+        <label htmlFor="jobName" className="job-name">
+          Company:
+          <input
+            value={company}
+            onChange={(event) => changeCompany(event, "company")}
+            type="text"
+            id="jobName"
+          />
+        </label>
+        <label htmlFor="field" className="job-pos">
+          Position:
+          <input
+            value={position}
+            onChange={(event) => changePosition(event, "position")}
+            type="text"
+            id="field"
+          />
+        </label>
+        <label htmlFor="description" className="job-desc">
           <button
-            className="school-delete-btn"
-            onClick={() => onDelete(jobId)}
+            className="bg-yellow add-btn shadow fff radius margin"
             type="button"
+            onClick={addDesc}
           >
-            ❌
+            Add duty
           </button>
-        </form>
-      </div>
-    );
-  }
+          {description.map((desc) => (
+            <Duty
+              onDelete={deleteDesc}
+              onChange={changeDesc}
+              value={desc.text}
+              key={desc.id}
+              id={desc.id}
+            />
+          ))}
+        </label>
+        <label htmlFor="start" className="job-start">
+          Start year:
+          <input
+            value={start}
+            onChange={(event) => changeStart(event, "start")}
+            type="number"
+            id="start"
+            min="1950"
+            max={new Date().getFullYear()}
+          />
+        </label>
+        <label htmlFor="end" className="job-end">
+          End year:
+          <input
+            value={end}
+            onChange={(event) => changeEnd(event, "end")}
+            type="number"
+            id="end"
+            min={start || "2030"}
+          />
+        </label>
+        <button
+          className="school-delete-btn"
+          onClick={() => onDelete(jobId)}
+          type="button"
+        >
+          ❌
+        </button>
+      </form>
+    </div>
+  );
 }
+// }
 Job.defaultProps = {
   inputs: {
     company: "",
